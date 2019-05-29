@@ -2,7 +2,7 @@ const mysql = require('mysql');
 const inquirer = require('inquirer');
 const table = require('cli-table2')
 
-var divider = "==============================="
+var divider = "====================================================="
 
 //connection info
 var connection = mysql.createConnection({
@@ -21,15 +21,17 @@ connection.connect(function(err) {
 home()
 //home screen
 function home() {
+  //promot
   inquirer.prompt([
     {
       name: 'go',
       message: 'Welcome to Bamazon!',
       type: 'list',
-      choices: ['Shop', 'Admin']
+      choices: ['Shop', 'Admin', 'Exit']
     }
   ]).then(function(response) {
-    switch (response) {
+    //switch based on user input
+    switch (response.go) {
       case 'Shop': 
         selectProduct() 
         break;
@@ -40,11 +42,6 @@ function home() {
         connection.end()
         break;
     }
-    // if (response.go === 'Shop') {
-    //   selectProduct()
-    // } else if (response.go === 'Admin') {
-    //   admin()
-    // }
   })
 }
 
@@ -56,7 +53,12 @@ function selectProduct() {
     //list items to terminal
     console.log(`\n${divider}`)
     for (let i = 0; i < item.length; i++) {
-      console.log(`id number: ${item[i].item_id}\n${item[i].product_name} (${item[i].department_name}) - $${item[i].price}\n${divider}`)
+      if (parseInt(item[i].stock_quantity) > 0) {
+        console.log(`id number: ${item[i].item_id}\n${item[i].product_name} (${item[i].department_name}) ~ $${item[i].price} - ${item[i].stock_quantity} left in stock!\n${divider}`)
+      } else {
+        console.log(`id number: ${item[i].item_id}\n${item[i].product_name} (${item[i].department_name}) ~ SOLD OUT\n${divider}`)
+
+      }
     }
     console.log(`\n`)
     //prompt
@@ -115,19 +117,24 @@ function buyProduct(product, amount) {
     let stock = res[0].stock_quantity
     let item = res[0].product_name
     //update db
-    connection.query('UPDATE products SET ? WHERE ?', 
-    [{
-      stock_quantity: stock - amount
-    },
-    {
-      item_id: product
-    }], function(err, res) {
-      if (err) throw err;
-      //info to user
-      console.log(`\n${divider}\nItem purchased: ${item}\nAmount Purchased: ${amount}\n${divider}\n`)
-      //back to homescreen
-      setTimeout(function() {home()}, 2500)
-    })
+    if (stock - amount > 0) {
+      connection.query('UPDATE products SET ? WHERE ?', 
+      [{
+        stock_quantity: stock - amount
+      },
+      {
+        item_id: product
+      }], function(err, res) {
+        if (err) throw err;
+        //info to user
+        console.log(`\n${divider}\nItem purchased: ${item}\nAmount Purchased: ${amount}\n${divider}\n`)
+        //back to homescreen
+        setTimeout(function() {home()}, 2500)
+      })
+    } else if (stock - amount < 1 || stock < amount) {
+      console.log(`\n${divider}\nInsufficient stock - please select another item\n${divider}\n`)
+      setTimeout(function() {selectProduct()}, 2500)
+    }
   })
 }
 
