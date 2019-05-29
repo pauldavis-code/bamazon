@@ -71,22 +71,8 @@ function selectProduct() {
     ]).then(function(input) {
       let id = parseInt(input.idInput)
       let bought = parseInt(input.unitInput)
-
-      //db query
-      // connection.query('SELECT * FROM products WHERE ?', {item_id: id}, function(err, res) {
-      //   if (err) throw err;
-      //   let quantity = res[0].stock_quantity
+      
       buyProduct(id, bought)
-        // connection.query('UPDATE products SET ? WHERE ?', 
-        // {
-        //   stock_quantity: quantity - bought
-        // },
-        // {
-        //   item_id: id
-        // }, function(err, res) {
-        //   if (err) throw err;
-        //   // console.log(res[0].product_name)
-        //   console.log(`${res.product_name} -  ${res.stock_quantity} left!`)
     })
   })
 }
