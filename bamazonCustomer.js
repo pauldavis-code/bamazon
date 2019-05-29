@@ -35,9 +35,6 @@ function home() {
       case 'Shop': 
         selectProduct() 
         break;
-      case 'Admin': 
-        admin()
-        break;
       case 'Exit':
         connection.end()
         break;
@@ -117,7 +114,7 @@ function buyProduct(product, amount) {
     let stock = res[0].stock_quantity
     let item = res[0].product_name
     //update db
-    if (stock - amount > 0) {
+    if (stock - amount >= 0) {
       connection.query('UPDATE products SET ? WHERE ?', 
       [{
         stock_quantity: stock - amount
@@ -131,13 +128,9 @@ function buyProduct(product, amount) {
         //back to homescreen
         setTimeout(function() {home()}, 2500)
       })
-    } else if (stock - amount < 1 || stock < amount) {
+    } else {
       console.log(`\n${divider}\nInsufficient stock - please select another item\n${divider}\n`)
       setTimeout(function() {selectProduct()}, 2500)
     }
   })
-}
-
-function admin() {
-  console.log('admin')
 }
