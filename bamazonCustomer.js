@@ -18,8 +18,37 @@ connection.connect(function(err) {
   if (err) throw err;
 });
 
-selectProduct()
-//database query
+home()
+//home screen
+function home() {
+  inquirer.prompt([
+    {
+      name: 'go',
+      message: 'Welcome to Bamazon!',
+      type: 'list',
+      choices: ['Shop', 'Admin']
+    }
+  ]).then(function(response) {
+    switch (response) {
+      case 'Shop': 
+        selectProduct() 
+        break;
+      case 'Admin': 
+        admin()
+        break;
+      case 'Exit':
+        connection.end()
+        break;
+    }
+    // if (response.go === 'Shop') {
+    //   selectProduct()
+    // } else if (response.go === 'Admin') {
+    //   admin()
+    // }
+  })
+}
+
+//shop
 function selectProduct() {
   connection.query('SELECT * FROM products', function(err, res) {
     if (err) throw err;
@@ -71,7 +100,7 @@ function selectProduct() {
     ]).then(function(input) {
       let id = parseInt(input.idInput)
       let bought = parseInt(input.unitInput)
-      
+
       buyProduct(id, bought)
     })
   })
@@ -97,7 +126,11 @@ function buyProduct(product, amount) {
       //info to user
       console.log(`\n${divider}\nItem purchased: ${item}\nAmount Purchased: ${amount}\n${divider}\n`)
       //back to homescreen
-      setTimeout(function() {selectProduct()}, 2500)
+      setTimeout(function() {home()}, 2500)
     })
   })
+}
+
+function admin() {
+  console.log('admin')
 }
