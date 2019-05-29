@@ -91,13 +91,15 @@ function selectProduct() {
   })
 }
 
+//buy
 function buyProduct(product, amount) {
+  //query based on id
   connection.query('SELECT * FROM products WHERE ?', 
   {item_id: product}, function(err, res) {
     if (err) throw err;
     let stock = res[0].stock_quantity
     let item = res[0].product_name
-    
+    //update db
     connection.query('UPDATE products SET ? WHERE ?', 
     [{
       stock_quantity: stock - amount
@@ -106,8 +108,10 @@ function buyProduct(product, amount) {
       item_id: product
     }], function(err, res) {
       if (err) throw err;
+      //info to user
       console.log(`\n${divider}\nItem purchased: ${item}\nAmount Purchased: ${amount}\n${divider}\n`)
-      setTimeout(function() {selectProduct()}, 2000)
+      //back to homescreen
+      setTimeout(function() {selectProduct()}, 2500)
     })
   })
 }
