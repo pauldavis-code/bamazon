@@ -34,21 +34,21 @@ node bamazonCustomer.js
 
 Once running, you will be presented with the option to "shop".
 
-[customer-shop.png](read-me/customer-start.png)
+![customer-shop.png](read-me/customer-start.png)
 
 Selecting this option will present us with a list of items to choose from, as well as a prompt to type the ID of the item we want to buy, followed by a prompt to input the amount we want to buy.
 
-[customer-shop.png](read-me/customer-shop.png)
+![customer-shop.png](read-me/customer-shop.png)
 
 (npm package inquirer WILL validate that both of these inputs are numbers, and if they are not, it will not continue.)
 
 Once the item is successfully bought, the customer will be shown a confirmation message, and taken back to the homescreen where they can continue shopping or exit the application. 
 
-[customer-bought.png](read-me/customer-bought.png)
+![customer-bought.png](read-me/customer-bought.png)
 
 If the customer inputs an invalid amount (too many to buy or if the item is sold out), the user will be presented with an "insufficient stock" message, and prompted to select another item.
 
-[customer-insufficient.png](read-me/customer-insufficient.png)
+![customer-insufficient.png](read-me/customer-insufficient.png)
 
 ### bamazonManager
 
@@ -60,23 +60,23 @@ node bamazonManager.js
 
 Once running, the user will be prompted with 4 options
 
-[manager-start.png](read-me/manager-start.png)
+![manager-start.png](read-me/manager-start.png)
 
 The first option will simply show the manager a list of items for sale with price, stock, and department type.
 
-[manager-stock.png](read-me/manager-stock.png)
+![manager-stock.png](read-me/manager-stock.png)
 
 The second option will display all low inventory (items with less than 3 in stock) in the same format as the first before returning you back to the home screen.
 
-[manager-lowInv.png](read-me/manager-lowInv.png)
+![manager-lowInv.png](read-me/manager-lowInv.png)
 
 The third option will allow the user to add to a current products inventory by simply typing the ID number and the amount of stock you are adding before returning you back to the home screen.
 
-[manager-addInv.png](read-me/manager-addInv.png)
+![manager-addInv.png](read-me/manager-addInv.png)
 
 The last option will add a new product to our list. Simply enter the name, type, price, and stock for the item when prompted and it will be added before returning you to the home screen.
 
-[manager-addItem.png](read-me/manager-addItem.png)
+![manager-addItem.png](read-me/manager-addItem.png)
 
 Finally, exit the application by selecting "exit" from the home screen.
 
