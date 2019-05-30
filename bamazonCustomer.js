@@ -1,6 +1,5 @@
 const mysql = require('mysql');
 const inquirer = require('inquirer');
-const table = require('cli-table2')
 
 var divider = "====================================================="
 
@@ -27,7 +26,7 @@ function home() {
       name: 'go',
       message: 'Welcome to Bamazon!',
       type: 'list',
-      choices: ['Shop', 'Admin', 'Exit']
+      choices: ['Shop', 'Exit']
     }
   ]).then(function(response) {
     //switch based on user input

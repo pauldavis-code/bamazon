@@ -41,7 +41,7 @@ function home() {
       case 'Add new product':
         addProduct()
         break;
-      case 'exit':
+      case 'Exit':
         connection.end()
         break;
     }
@@ -166,4 +166,39 @@ function updateProduct(product, amount) {
   })
 }
 
-function 
+function addProduct() {
+  inquirer.prompt([
+    {
+      name: 'product_name',
+      message: 'Enter the name of the product: ',
+      type: 'input'
+    },
+    {
+      name: 'department_name',
+      message: 'What type of product is this? ',
+      type: 'input'
+    },
+    {
+      name: 'price',
+      message: 'Enter the price for this product: $',
+      type: 'input'
+    },
+    {
+      name: 'stock_quantity',
+      message: 'Enter the stock of this product: ',
+      type: 'input'
+    }
+  ]).then(function(newItem) {
+      connection.query('INSERT INTO products SET?',
+      {
+        product_name: newItem.product_name,
+        department_name: newItem.department_name,
+        price: newItem.price,
+        stock_quantity: newItem.stock_quantity
+      }, function(err, res) {
+        if (err) throw err;
+        console.log(`\n${divider}\nITEM ADDED SUCCESSFULLY\n${divider}\n`)
+        setTimeout(function() {home()}, 2500)
+      })
+    })
+}
