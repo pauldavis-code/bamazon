@@ -82,9 +82,9 @@ Finally, exit the application by selecting "exit" from the home screen.
 
 ## Built With
 * [node.js](https://nodejs.org/en/) - for terminal javascript
-* [sql-workbench](https://www.mysql.com/products/workbench/) 
-* [npm package - mysql](https://www.npmjs.com/package/mysql)
-* [npm package - inquirer](https://www.npmjs.com/package/inquirer)
+* [sql-workbench](https://www.mysql.com/products/workbench/) - to set up local database
+* [npm package - mysql](https://www.npmjs.com/package/mysql) - for js sql query
+* [npm package - inquirer](https://www.npmjs.com/package/inquirer) - for terminal navigation
 
 ## Authors
 Paul Davis - UCF Continuing Education Coding Bootcamp
